@@ -1,13 +1,13 @@
 ## Játékprototípusok
 
-> - Varga Bence (HK74CE)
+Varga Bence (HK74CE)
 
 # Cím
 
 Droppy Bird
 
 # Platform
-> - Elsősorban böngészőböl játszható
+Elsősorban böngészőböl játszható
 
 # Leírás
 > - A népszerű Flappy Bird című játék pontos klónja JavaScript és HTML5 segítségével,
@@ -23,7 +23,7 @@ Az egér bal gombjának megnyomásávál tarthatjuk fent a karaktert.
 
 
 # Asset-ek
-> - Sprite-ok: Háttér, Madár, Csövek, Föld, Érmék, Feliratok
+Sprite-ok: Háttér, Madár, Csövek, Föld, Érmék, Feliratok
    
 
 

@@ -430,6 +430,7 @@ function hitBird(player) {
     player.anims.play(getAnimationBird(birdName).stop)
     ground.anims.play(assets.animation.ground.stop)
     HIT.play();
+    DIE.play();
 
     gameOverBanner.visible = true
     restartButton.visible = true
@@ -569,7 +570,7 @@ function restartGame() {
     prepareGame(gameScene)
 
     gameScene.physics.resume()
-    DIE.play();
+    
 
 }
 

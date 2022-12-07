@@ -1,6 +1,6 @@
 /**
  * 
- * Game configurations.
+ * Játék konfigurációja.
  * @name configurations
  */
 const configurations = {
@@ -24,7 +24,7 @@ const configurations = {
 }
 
 /**
- *  Game assets.
+ *  Játék asset-jei.
  *  @name assets
  */
 const assets = {

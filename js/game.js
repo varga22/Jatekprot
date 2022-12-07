@@ -84,6 +84,7 @@ const assets = {
                 clapWings: 'yellow-clap-wings',
                 stop: 'yellow-stop'
             }
+           
         },
         ground: {
             moving: 'moving-ground',
@@ -245,6 +246,22 @@ function preload() {
     this.load.image(assets.scoreboard.number9, 'assets/number9.png')
 }
 
+// Hangok hozzáadása
+const SCORE_S = new Audio();
+SCORE_S.src = "audio/sfx_point.wav";
+
+const FLAP = new Audio();
+FLAP.src = "audio/sfx_flap.wav";
+
+const HIT = new Audio();
+HIT.src = "audio/sfx_hit.wav";
+
+const SWOOSHING = new Audio();
+SWOOSHING.src = "audio/sfx_swooshing.wav";
+
+const DIE = new Audio();
+DIE.src = "audio/sfx_die.wav";
+
 
 //  A játék objektumai (képek, csövek, játékos és animációk).
 
@@ -255,6 +272,7 @@ function create() {
     backgroundNight.visible = false
     backgroundNight.on('pointerdown', moveBird)
 
+
     gapsGroup = this.physics.add.group()
     pipesGroup = this.physics.add.group()
     scoreboardGroup = this.physics.add.staticGroup()
@@ -262,7 +280,7 @@ function create() {
     ground = this.physics.add.sprite(assets.scene.width, 458, assets.scene.ground)
     ground.setCollideWorldBounds(true)
     ground.setDepth(10)
-
+   
     messageInitial = this.add.image(assets.scene.width, 156, assets.scene.messageInitial)
     messageInitial.setDepth(30)
     messageInitial.visible = false
@@ -370,10 +388,12 @@ function update() {
         moveBird()
     else {
         player.setVelocityY(120)
+        
 
         if (player.angle < 90)
             player.angle += 1
     }
+    
 
     pipesGroup.children.iterate(function (child) {
         if (child == undefined)
@@ -393,6 +413,7 @@ function update() {
     if (nextPipes === 130) {
         makePipes(game.scene.scenes[0])
         nextPipes = 0
+        SCORE_S.play();
     }
 }
 
@@ -408,9 +429,12 @@ function hitBird(player) {
 
     player.anims.play(getAnimationBird(birdName).stop)
     ground.anims.play(assets.animation.ground.stop)
+    HIT.play();
 
     gameOverBanner.visible = true
     restartButton.visible = true
+    
+   
 }
 
 /**
@@ -469,6 +493,9 @@ function moveBird() {
     player.setVelocityY(-400)
     player.angle = -15
     framesMoveUp = 5
+    FLAP.play();
+
+    
 }
 
 /**
@@ -535,11 +562,15 @@ function restartGame() {
     player.destroy()
     gameOverBanner.visible = false
     restartButton.visible = false
+   
+
 
     const gameScene = game.scene.scenes[0]
     prepareGame(gameScene)
 
     gameScene.physics.resume()
+    DIE.play();
+
 }
 
 /**
@@ -556,11 +587,13 @@ function prepareGame(scene) {
     backgroundNight.visible = false
     messageInitial.visible = true
 
+
     birdName = getRandomBird()
     player = scene.physics.add.sprite(60, 265, birdName)
     player.setCollideWorldBounds(true)
     player.anims.play(getAnimationBird(birdName).clapWings, true)
     player.body.allowGravity = false
+    
 
     scene.physics.add.collider(player, ground, hitBird, null, scene)
     scene.physics.add.collider(player, pipesGroup, hitBird, null, scene)
@@ -568,6 +601,7 @@ function prepareGame(scene) {
     scene.physics.add.overlap(player, gapsGroup, updateScore, null, scene)
 
     ground.anims.play(assets.animation.ground.moving, true)
+    
 }
 
 /**
@@ -577,6 +611,7 @@ function prepareGame(scene) {
 function startGame(scene) {
     gameStarted = true
     messageInitial.visible = false
+    SWOOSHING.play();
 
     const score0 = scoreboardGroup.create(assets.scene.width, 30, assets.scoreboard.number0)
     score0.setDepth(20)

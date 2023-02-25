@@ -447,7 +447,7 @@ function updateScore(_, gap) {
     score++
     gap.destroy()
 
-    if (score % 10 == 0) {
+    if (score % 5 == 0) {
         backgroundDay.visible = !backgroundDay.visible
         backgroundNight.visible = !backgroundNight.visible
 
